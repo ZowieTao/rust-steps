@@ -1,3 +1,16 @@
+macro_rules! println {
+    () => (print!("\n"));
+    ($fmt:expr) => (print!(concat!($fmt, "\n")));
+    ($fmt:expr, $($arg:tt)*) => (print!(concat!($fmt, "\n"), $($arg)*));
+}
+
+macro_rules! print {
+    ($($arg:tt)*) => ({
+        // actually print logic 
+        std::io::Write::write_fmt(&mut std::io::stdout(), format_args!($($arg)*)).unwrap();
+    });
+}
+
 struct User{
     name:String
 }
@@ -18,4 +31,7 @@ fn main() {
     };
     User::hello();
     user.say();
+
+    
+    todo!("Display the message by using the println!() macro");
 }
