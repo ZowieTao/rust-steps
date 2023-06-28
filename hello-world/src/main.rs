@@ -110,7 +110,9 @@ fn main() {
     );
 
     // Tuple of length 3
-    let tuple_e: (&str, f32, bool) = ("E", 5.0, 5.0 > 4.0);
+    let mut tuple_e: (&str, f32, bool) = ("E", 5.0, 5.0 > 4.0);
+
+    tuple_e.2 = 4.0 > 5.0;
 
     // Use tuple indexing and show the values of the elements in the tuple
     println!(
