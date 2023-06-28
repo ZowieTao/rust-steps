@@ -109,5 +109,14 @@ fn main() {
         string_0, smiley_face, character_1, string_1, character_2, string_2
     );
 
+    // Tuple of length 3
+    let tuple_e: (&str, f32, bool) = ("E", 5.0, 5.0 > 4.0);
+
+    // Use tuple indexing and show the values of the elements in the tuple
+    println!(
+        "Is '{}' the {}th letter of the alphabet? {}",
+        tuple_e.0, tuple_e.1, tuple_e.2
+    );
+
     todo!("Display the message by using the println!() macro");
 }
