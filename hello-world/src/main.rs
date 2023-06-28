@@ -70,6 +70,19 @@ fn main() {
     // Declare third variable binding, shadows second binding of variable "shadow_num"
     let shadow_num: i32 = shadow_num * 2;
 
+    // let number_32 = 5.0;
+
+    // Addition, Subtraction, and Multiplication
+    println!(
+        "1 + 2 = {} and 8 - 5 = {} and 15 * 3 = {}",
+        1u64 + 2,
+        8i32 - 5,
+        15 * 3
+    );
+
+    // Integer and Floating point division
+    println!("9 / 2 = {} but 9.0 / 2.0 = {}", 9u32 / 2, 9.0 / 2.0);
+
     println!("The shadow_num is {}.", shadow_num);
 
     todo!("Display the message by using the println!() macro");
