@@ -72,6 +72,8 @@ fn main() {
 
     // let number_32 = 5.0;
 
+    println!("The shadow_num is {}.", shadow_num);
+
     // Addition, Subtraction, and Multiplication
     println!(
         "1 + 2 = {} and 8 - 5 = {} and 15 * 3 = {}",
@@ -83,7 +85,29 @@ fn main() {
     // Integer and Floating point division
     println!("9 / 2 = {} but 9.0 / 2.0 = {}", 9u32 / 2, 9.0 / 2.0);
 
-    println!("The shadow_num is {}.", shadow_num);
+    // Declare variable to store result of "greater than" test, Is 1 > 4? -- false
+    let is_bigger: bool = 1 > 4;
+    println!("Is 1 > 4? {}", is_bigger);
+
+    // Specify the data type "char"
+    let character_1: char = 'S';
+    let character_2: char = 'f';
+
+    // Compiler interprets a single item in quotations as the "char" data type
+    let smiley_face = '😃';
+
+    // Compiler interprets a series of items in quotations as a "str" data type and creates a "&str" reference
+    let string_1: &str = "miley ";
+
+    // Specify the data type "str" with the reference syntax "&str"
+    let string_2: &str = "ace";
+
+    let string_0: String = "hello".to_string();
+
+    println!(
+        "{}, {} is a {}{}{}{}. ",
+        string_0, smiley_face, character_1, string_1, character_2, string_2
+    );
 
     todo!("Display the message by using the println!() macro");
 }
