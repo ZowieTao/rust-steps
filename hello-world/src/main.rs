@@ -1,3 +1,5 @@
+use std::fmt;
+
 macro_rules! println {
     () => (print!("\n"));
     ($fmt:expr) => (print!(concat!($fmt, "\n")));
@@ -21,6 +23,28 @@ impl User {
     }
     fn say(&self) {
         println!("{}", self.name);
+    }
+}
+
+struct MyString {
+    data: Vec<u8>,
+}
+
+impl MyString {
+    fn from(s: &str) -> MyString {
+        MyString {
+            data: s.as_bytes().to_vec(),
+        }
+    }
+
+    fn as_str(&self) -> &str {
+        std::str::from_utf8(&self.data).unwrap()
+    }
+}
+
+impl fmt::Display for MyString {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.as_str())
     }
 }
 
@@ -118,6 +142,41 @@ fn main() {
     println!(
         "Is '{}' the {}th letter of the alphabet? {}",
         tuple_e.0, tuple_e.1, tuple_e.2
+    );
+
+    // Classic struct with named fields
+    struct Student {
+        name: MyString,
+        level: u8,
+        remote: bool,
+    }
+
+    // Tuple struct with data types only
+    struct Grades(char, char, char, char, f32);
+
+    let user_1 = Student {
+        name: MyString::from("Jane Wang"),
+        remote: true,
+        level: 2,
+    };
+
+    let user_2 = Student {
+        name: MyString::from("Zowie Tao"),
+        level: 5,
+        remote: false,
+    };
+
+    // Instantiate tuple structs, pass values in same order as types defined
+    let mark_1 = Grades('A', 'A', 'B', 'A', 3.75);
+    let mark_2 = Grades('B', 'A', 'A', 'C', 3.25);
+
+    println!(
+        "{}, level {}. Remote: {}. Grades: {}, {}, {}, {}. Average: {}",
+        user_1.name, user_1.level, user_1.remote, mark_1.0, mark_1.1, mark_1.2, mark_1.3, mark_1.4
+    );
+    println!(
+        "{}, level {}. Remote: {}. Grades: {}, {}, {}, {}. Average: {}",
+        user_2.name, user_2.level, user_2.remote, mark_2.0, mark_2.1, mark_2.2, mark_2.3, mark_2.4
     );
 
     todo!("Display the message by using the println!() macro");
