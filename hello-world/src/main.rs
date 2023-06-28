@@ -49,6 +49,16 @@ impl fmt::Display for MyString {
     }
 }
 
+trait ToMyString {
+    fn to_my_string(&self) -> MyString;
+}
+
+impl ToMyString for str {
+    fn to_my_string(&self) -> MyString {
+        MyString::from(self)
+    }
+}
+
 fn main() {
     let user = User {
         name: String::from("hello user"),
@@ -163,6 +173,16 @@ fn main() {
 
     let user_2 = Student {
         name: MyString::from("Zowie Tao"),
+        level: 5,
+        remote: false,
+    };
+
+    println!("{}", user_2.name);
+
+    // shadow struct
+    let user_2 = Student {
+        //  use trail way to convert &str to MyString
+        name: "HandsomeBoy Zowie Tao".to_my_string(),
         level: 5,
         remote: false,
     };
