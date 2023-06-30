@@ -4,6 +4,10 @@ fn main() {
     array_test();
 
     vector_test();
+
+    car_factory_test();
+
+    condition_test()
 }
 
 fn array_test() {
@@ -72,8 +76,8 @@ fn vector_test() {
     println!("Vector: {:?}", index_vec);
 
     // Access vector with out-of-bounds index
-    let beyond = index_vec[10];
-    println!("{}", beyond);
+    // let beyond = index_vec[10];
+    // println!("{}", beyond);
 }
 
 fn car_factory_test() {
@@ -112,7 +116,7 @@ fn car_factory_test() {
         let quality: (Age, u32) = (car_type, miles);
 
         // Return the completed tuple to the caller
-        return quality;
+        quality
     }
 
     // Build a new "Car" using the values of four input arguments
@@ -166,5 +170,41 @@ fn car_factory_test() {
     println!(
         "Car order 3: {:?}, Hard top = {}, {:?}, {}, {} miles",
         car.age.0, car.roof, car.motor, car.color, car.age.1
+    );
+}
+
+fn condition_test() {
+    if 1 == 2 {
+        println!("True, the number are equal.")
+    } else {
+        println!("False, the number are not equal.")
+    }
+
+    let formal = true;
+    let greeting = if formal { "Good day to you." } else { "Hey!" };
+    println!("{}", greeting);
+
+    fn rang_512_condition(num: i32) -> bool {
+        let out_of_range: bool;
+        if num < 0 {
+            out_of_range = true;
+        } else if num == 0 {
+            out_of_range = true;
+        } else if num > 512 {
+            out_of_range = true;
+        } else {
+            out_of_range = false;
+        }
+
+        out_of_range
+    }
+
+    println!(
+        "1234 {} out of range 512",
+        if rang_512_condition(1234) {
+            "is"
+        } else {
+            "not"
+        }
     );
 }
