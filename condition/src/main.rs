@@ -25,4 +25,30 @@ fn main() {
         "bytes: {:?} \n first: {} \n second: {}",
         bytes, first, second
     );
+
+    let three_nums = vec![15, 3, 46];
+    println!("Initial vector: {:?}", three_nums);
+
+    let zeros = vec![3.1415926; 50];
+    println!("Zeros: {:?}", zeros);
+
+    // Create empty vector, declare vector mutable so it can grow and shrink, MUST SAME TYPE LIKE ARRAY, NOT TUPLE
+    let mut fruit: Vec<&str> = Vec::new();
+
+    // Push values onto end of vector, type changes from generic `T` to String
+    fruit.push("Apple");
+    fruit.push("Banana");
+    fruit.push("Cherry");
+    println!("Fruits: {:?}", fruit);
+
+    // Push integer value, but vector expects String (&str) type value
+    // fruit.push(1);
+
+    // Pop off value at end of vector
+    // Call pop() method from inside println! macro
+    println!("Pop off: {:?}", fruit.pop());
+    println!("Pop off: {:?}", fruit.pop());
+    println!("Pop off: {:?}", fruit.pop());
+    println!("Pop off: {:?}", fruit.pop());
+    println!("Fruits: {:?}", fruit);
 }
