@@ -2,6 +2,8 @@ fn main() {
     hash_map_test();
 
     hash_map_unit_test();
+
+    loop_test();
 }
 
 fn hash_map_test() {
@@ -156,4 +158,22 @@ fn hash_map_unit_test() {
     car = car_factory(order, 4000);
     orders.insert(order, car);
     println!("Car order {}: {:?}", order, orders.get(&order));
+}
+
+fn loop_test() {
+    use std::time::Instant;
+    let mut count: u128 = 0;
+
+    let start: Instant = Instant::now();
+    loop {
+        count += 1;
+        println!("we loop forever! {}", count);
+
+        if count == 164000 {
+            break;
+        }
+    }
+    let elapsed: std::time::Duration = start.elapsed();
+
+    println!("Time elapsed: {:?}", elapsed);
 }
