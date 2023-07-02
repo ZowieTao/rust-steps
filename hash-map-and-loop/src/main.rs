@@ -3,7 +3,13 @@ fn main() {
 
     hash_map_unit_test();
 
-    loop_test();
+    let loop_time = 164000;
+
+    loop_test(loop_time);
+
+    while_test(loop_time);
+
+
 }
 
 fn hash_map_test() {
@@ -160,20 +166,35 @@ fn hash_map_unit_test() {
     println!("Car order {}: {:?}", order, orders.get(&order));
 }
 
-fn loop_test() {
+fn loop_test(loop_time: u32) {
     use std::time::Instant;
-    let mut count: u128 = 0;
+    let mut count: u32 = 0;
 
     let start: Instant = Instant::now();
-    loop {
+    let stop_loop: u32 = loop {
         count += 1;
-        println!("we loop forever! {}", count);
 
-        if count == 164000 {
-            break;
+        if count == loop_time {
+            break count;
         }
-    }
+    };
+
     let elapsed: std::time::Duration = start.elapsed();
 
-    println!("Time elapsed: {:?}", elapsed);
+    println!("Time elapsed: {:?}, loop_stop time: {}", elapsed, stop_loop);
 }
+
+fn while_test(loop_time: u32) {
+    use std::time::Instant;
+    let mut counter = 0;
+
+    let start: Instant = Instant::now();
+    while counter < loop_time {
+        println!("We loop a while...");
+        counter = counter + 1;
+    }
+
+    let elapsed: std::time::Duration = start.elapsed();
+    println!("While Time elapsed: {:?}", elapsed);
+}
+
