@@ -9,7 +9,7 @@ fn main() {
 
     while_test(loop_time);
 
-
+    for_test();
 }
 
 fn hash_map_test() {
@@ -190,7 +190,6 @@ fn while_test(loop_time: u32) {
 
     let start: Instant = Instant::now();
     while counter < loop_time {
-        println!("We loop a while...");
         counter = counter + 1;
     }
 
@@ -198,3 +197,13 @@ fn while_test(loop_time: u32) {
     println!("While Time elapsed: {:?}", elapsed);
 }
 
+fn for_test() {
+    let big_birds = ["ostrich", "peacock", "stork"];
+    for bird in big_birds.iter() {
+        println!("The {} is a big bird.", bird);
+    }
+
+    for number in 0..5 {
+        println!("{}", number * 2);
+    }
+}
