@@ -23,9 +23,11 @@ fn main() {
 
     unwrap_expect();
 
-    person_test();
+    person_task();
 
     result_type_handle_err();
+
+    result_type_task();
 }
 
 fn match_test() {
@@ -72,7 +74,7 @@ fn unwrap_expect() {
     assert_eq!(None.unwrap_or("cat"), "cat"); // for none case
 }
 
-fn person_test() {
+fn person_task() {
     struct Person {
         first: String,
         middle: Option<String>,
@@ -140,6 +142,49 @@ fn result_type_handle_err() {
         println!("{:?}", safe_division(9.0, 3.0));
         println!("{:?}", safe_division(4.0, 0.0));
         println!("{:?}", safe_division(0.0, 2.0));
+    }
+
+    main();
+}
+
+fn result_type_task() {
+    use std::fs::File;
+    use std::io::{Error, Read};
+    use std::path::PathBuf;
+
+    fn read_file_contents(path: PathBuf) -> Result<String, Error> {
+        let mut string = String::new();
+
+        // Access a file at a specified path
+        // ---------------------------------
+        // TODO #1:
+        // - Pass variable to `file` variable on success, or
+        // - Return from function early if there's an error
+        let mut file: File = match File::open(path) {
+            Ok(file_handle) => file_handle,
+            Err(io_error) => return Err(io_error),
+        };
+
+        // Read file contents into `String` variable with `read_to_string`
+        // ---------------------------------
+        // Success path is already filled in
+        // TODO #2: Return from function early if there's an error
+        match file.read_to_string(&mut string) {
+            Ok(_) => (),
+            Err(io_error) => return Err(io_error),
+        };
+
+        // TODO #3: Return `string` variable as expected by function signature
+        Ok(string)
+    }
+
+    fn main() {
+        if read_file_contents(PathBuf::from("src/main.rs")).is_ok() {
+            println!("The program found the main file.");
+        }
+        if read_file_contents(PathBuf::from("non-existent-file.txt")).is_err() {
+            println!("The program reported an error for the file that doesn't exist.");
+        }
     }
 
     main();
