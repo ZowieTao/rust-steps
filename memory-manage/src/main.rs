@@ -1,5 +1,7 @@
 fn main() {
     owner_clone_test();
+
+    borrowed_test()
 }
 
 fn owner_clone_test() {
@@ -12,10 +14,10 @@ fn owner_clone_test() {
         // transfer ownership of mascot to the variable ferris.
         let _ferris = mascot;
         // ferris dropped here. The string data memory will be freed here.
-        println!("{}", mascot) // We'll try to use mascot after we've moved ownership of the string data from mascot to ferris.
+        // println!("{}", mascot) // We'll try to use mascot after we've moved ownership of the string data from mascot to ferris.
     }
 
-    // println!("{}", _mascot);
+    println!("{}", _mascot);
 
     // fn process(input: String) {}
     // fn caller() {
@@ -76,4 +78,29 @@ fn borrowed_test() {
         }
         main();
     }
+    change_borrowed();
+
+    fn borrowed_mut_reference() {
+        fn scene1() {
+            let mut value = String::from("hello");
+
+            let ref1: &mut String = &mut value;
+            // let ref2: &mut String = &mut value;
+            let ref2 = ref1.clone();
+
+            println!("{}, {}", ref1, ref2);
+        }
+        scene1();
+
+        fn scene2() {
+            let mut value = String::from("hello");
+
+            let ref1 = &value;
+            let ref2 = &mut value;
+
+            println!("{}, {}", ref1, ref2);
+        }
+        scene2();
+    }
+    borrowed_mut_reference();
 }
