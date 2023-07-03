@@ -3,17 +3,17 @@ fn main() {
     // println!("{}", v[6]);
     // panic!("Farewell!");
 
-    let fruits = vec!["banana", "apple", "coconut", "orange", "strawberry"];
+    let fruits: Vec<&str> = vec!["banana", "apple", "coconut", "orange", "strawberry"];
 
     // pick the first item:
-    let first = fruits.get(0);
+    let first: Option<&&str> = fruits.get(0);
     println!("{:?}", first);
 
     // pick the third item:
-    let third = fruits.get(2);
+    let third: Option<&&str> = fruits.get(2);
     println!("{:?}", third);
 
     // pick the 99th item, which is non-existent:
-    let non_existent = fruits.get(99);
+    let non_existent: Option<&&str> = fruits.get(99);
     println!("{:?}", non_existent);
 }
