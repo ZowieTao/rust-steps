@@ -1,7 +1,9 @@
 fn main() {
     owner_clone_test();
 
-    borrowed_test()
+    borrowed_test();
+
+    validate_references_with_lifetimes();
 }
 
 fn owner_clone_test() {
@@ -17,7 +19,7 @@ fn owner_clone_test() {
         // println!("{}", mascot) // We'll try to use mascot after we've moved ownership of the string data from mascot to ferris.
     }
 
-    println!("{}", _mascot);
+    // println!("{}", _mascot);
 
     // fn process(input: String) {}
     // fn caller() {
@@ -93,14 +95,95 @@ fn borrowed_test() {
         scene1();
 
         fn scene2() {
-            let mut value = String::from("hello");
+            // let mut value = String::from("hello");
 
-            let ref1 = &value;
-            let ref2 = &mut value;
+            // let ref1 = &value;
+            // let ref2 = &mut value;
 
-            println!("{}, {}", ref1, ref2);
+            // println!("{}, {}", ref1, ref2);
         }
         scene2();
     }
     borrowed_mut_reference();
+}
+
+fn validate_references_with_lifetimes() {
+    // fn scene1() {
+    //     let x;
+    //     // let y = 42;
+    //     {
+    //         let y = 42;
+    //         x = &y; // We store a reference to `y` in `x` but `y` is about to be dropped.
+    //     }
+    //     println!("x: {}", x); // `x` refers to `y` but `y has been dropped!
+    // }
+    // scene1();
+
+    fn scene2() {
+        fn longest_word<'a>(x: &'a String, y: &'a String) -> &'a String {
+            if x.len() > y.len() {
+                x
+            } else {
+                y
+            }
+        }
+
+        let magic1 = String::from("abracadabra!");
+        let magic2 = String::from("shazam!");
+
+        let result = longest_word(&magic1, &magic2);
+        println!("The longest magic word is {}", result);
+    }
+    scene2();
+
+    // fn scene3() {
+    //     fn longest_word<'a>(x: &'a String, y: &'a String) -> &'a String {
+    //         if x.len() > y.len() {
+    //             x
+    //         } else {
+    //             y
+    //         }
+    //     }
+
+    //     let magic1 = String::from("abracadabra!");
+    //     // let magic2 = String::from("shazam!");
+
+    //     let result;
+    //     {
+    //         let magic2 = String::from("shazam!");
+    //         result = longest_word(&magic1, &magic2);
+    //     }
+    //     println!("The longest magic word is {}", result);
+    // }
+    // scene3();
+
+    fn scene4() {
+        // Whenever a struct or enum holds a reference in one of its fields, we must annotate that type definition with the lifetime of each reference that it carries along with it.
+        #[derive(Debug)]
+        struct Highlight<'document>(&'document str);
+
+        let text = String::from("The quick brown fox jumps over the lazy dog.");
+        let fox = Highlight(&text[4..19]);
+        let dog = Highlight(&text[35..43]);
+        println!("{:?}", fox);
+        println!("{:?}", dog);
+    }
+    scene4();
+
+    fn scene5() {
+        #[derive(Debug)]
+        struct Highlight<'document>(&'document str);
+
+        fn erase(_: String) {}
+
+        let text: String = String::from("The quick brown fox jumps over the lazy dog.");
+        let fox: Highlight<'_> = Highlight(&text[4..19]);
+        let dog: Highlight<'_> = Highlight(&text[35..43]);
+
+        // erase(text);
+
+        println!("{:?}", fox);
+        println!("{:?}", dog);
+    }
+    scene5()
 }
