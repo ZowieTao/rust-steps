@@ -1,9 +1,13 @@
+// use std::fmt::format;
+
 fn main() {
     generic_data_type();
 
     define_shared_behavior_with_trait();
 
     derive();
+
+    trait_bounds();
 }
 
 fn generic_data_type() {
@@ -111,4 +115,76 @@ fn derive() {
     println!("{:}", p1); // can't print using the '{}' format specifier!
     println!("{:?}", p1); //  can't print using the '{:?}' format specifier!
     println!("{}", p1.distance_to_zero());
+}
+
+fn trait_bounds() {
+    trait AsJson {
+        fn as_json(&self) -> String;
+    }
+
+    // fn send_data_as_json(value: &impl AsJson) {
+    fn send_data_as_json<T: AsJson>(value: &T) {
+        println!("Sending JSON data to server...");
+        println!("-> {}", value.as_json());
+        println!("Done!\n");
+    }
+
+    struct Person {
+        name: String,
+        age: u8,
+        favorite_fruit: String,
+    }
+
+    struct Dog {
+        name: String,
+        color: String,
+        likes_petting: bool,
+    }
+
+    #[derive(Debug)]
+    struct Cat {
+        name: String,
+        sharp_claws: bool,
+    }
+
+    impl AsJson for Person {
+        fn as_json(&self) -> String {
+            format!(
+                r#"{{ "type": "person", "name": "{}", "age": {}, "favoriteFruit": "{}" }}"#,
+                self.name, self.age, self.favorite_fruit
+            )
+        }
+    }
+
+    impl AsJson for Dog {
+        fn as_json(&self) -> String {
+            format!(
+                r#"{{"type": "dog", "name": "{}", "color": "{}", "likes petting": "{}"}}"#,
+                self.name, self.color, self.likes_petting
+            )
+        }
+    }
+
+    let zowie = Person {
+        name: String::from("Zowie Tao"),
+        age: 24,
+        favorite_fruit: String::from("apples"),
+    };
+
+    let beautiful_man = Dog {
+        name: String::from("Beautiful Man"),
+        color: String::from("Black"),
+        likes_petting: true,
+    };
+
+    let kitty = Cat {
+        name: String::from("Kitty"),
+        sharp_claws: false,
+    };
+
+    send_data_as_json(&zowie);
+    send_data_as_json(&beautiful_man);
+
+    // send_data_as_json(&kitty);
+    println!("cat {:?}", kitty)
 }
