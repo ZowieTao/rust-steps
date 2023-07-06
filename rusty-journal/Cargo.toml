@@ -1,0 +1,20 @@
+[package]
+name = "rusty-journal"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.71"
+home = "0.5.5"
+structopt = "0.3.26"  
+serde_json = "1.0.100"
+
+[dependencies.chrono]
+features = ["serde"] 
+version = "0.4.26" 
+
+[dependencies.serde]  # Add serde in its own section.
+features = ["derive"] # We'll need the derive feature.
+version = "1.0.100"
