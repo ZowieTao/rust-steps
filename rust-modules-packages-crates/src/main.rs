@@ -32,6 +32,8 @@ mod authentication {
 
 fn main() {
     split_code_into_modules();
+
+    third_party_crates();
 }
 
 fn split_code_into_modules() {
@@ -41,4 +43,11 @@ fn split_code_into_modules() {
     println!("The password is: {}", user.get_password_hash());
     user.set_password("other-super-secret");
     println!("The password is: {}", user.get_password_hash());
+}
+
+fn third_party_crates() {
+    use regex::Regex;
+
+    let re = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
+    println!("Did our date match? {}", re.is_match("2023-07-06"));
 }
