@@ -31,6 +31,10 @@ mod authentication {
 }
 
 fn main() {
+    split_code_into_modules();
+}
+
+fn split_code_into_modules() {
     let mut user = authentication::User::new("zowie", "super-secret");
 
     println!("The username is: {}", user.get_username());
