@@ -34,6 +34,8 @@ fn main() {
     split_code_into_modules();
 
     third_party_crates();
+
+    exercise_visibility();
 }
 
 fn split_code_into_modules() {
@@ -50,4 +52,14 @@ fn third_party_crates() {
 
     let re = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
     println!("Did our date match? {}", re.is_match("2023-07-06"));
+}
+
+fn exercise_visibility() {
+    mod car_factory {
+        pub fn build_car() {
+            println!("Honk honk!");
+        }
+    }
+
+    car_factory::build_car();
 }
