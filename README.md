@@ -1,6 +1,6 @@
 # rust-first-steps
 
-## What is RUst
+## What is Rust
 
 ## Set up the Rust development environment
 
